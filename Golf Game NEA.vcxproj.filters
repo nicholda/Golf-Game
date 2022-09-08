@@ -50,7 +50,7 @@
     <ClInclude Include="ECS\ECS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ECS\PositionComponent.h">
+    <ClInclude Include="ECS\TransformComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ECS\SpriteComponent.h">
