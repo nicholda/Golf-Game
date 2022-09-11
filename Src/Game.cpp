@@ -2,11 +2,13 @@
 #include "TextureManager.h"
 #include "Map.h"
 #include "ECS/Components.h"
+#include "Vector2D.h"
 
 Map* map;
 Manager manager;
 
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
 
 auto& ball(manager.addEntity());
 
@@ -43,12 +45,11 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	}
 	map = new Map();
 
-	ball.addComponent<PositionComponent>(0, 0);
+	ball.addComponent<TransformComponent>();
 	ball.addComponent<SpriteComponent>("assets/Balls/Ball.png");
 }
 
 void Game::handleEvents() {
-	SDL_Event event;
 	SDL_PollEvent(&event);
 
 	switch (event.type) {
@@ -64,8 +65,8 @@ void Game::handleEvents() {
 void Game::update() {
 	manager.refresh();
 	manager.update();
-
-	if (ball.getComponent<PositionComponent>().x() > 100) {
+	ball.getComponent<TransformComponent>().position.Add(Vector2D(2, 1));
+	if (ball.getComponent<TransformComponent>().position.x > 100) {
 		ball.getComponent<SpriteComponent>().setTex("assets/Balls/GoldBall.png");
 	}
 }
