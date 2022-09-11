@@ -8,6 +8,10 @@ public:
 	Vector2D position;
 	Vector2D velocity;
 
+	float height = 16;
+	int width = 16;
+	int scale = 1;
+
 	int speed = 3;
 
 	TransformComponent() {

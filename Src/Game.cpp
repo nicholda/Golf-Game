@@ -47,6 +47,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	ball.addComponent<TransformComponent>();
 	ball.addComponent<SpriteComponent>("assets/Balls/Ball.png");
+	ball.addComponent<KeyboardController>();
 }
 
 void Game::handleEvents() {
@@ -65,10 +66,6 @@ void Game::handleEvents() {
 void Game::update() {
 	manager.refresh();
 	manager.update();
-	ball.getComponent<TransformComponent>().position.Add(Vector2D(2, 1));
-	if (ball.getComponent<TransformComponent>().position.x > 100) {
-		ball.getComponent<SpriteComponent>().setTex("assets/Balls/GoldBall.png");
-	}
 }
 
 bool Game::running() {

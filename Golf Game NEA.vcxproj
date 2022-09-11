@@ -141,8 +141,10 @@
     <ClCompile Include="Src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ECS\ColliderComponent.h" />
     <ClInclude Include="Src\ECS\Components.h" />
     <ClInclude Include="Src\ECS\ECS.h" />
+    <ClInclude Include="Src\ECS\KeyboardController.h" />
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\GameObject.h" />
     <ClInclude Include="Src\Map.h" />
