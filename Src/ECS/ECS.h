@@ -31,7 +31,7 @@ class Component {
 private:
 
 public:
-	Entity* entity;
+	Entity* entity{};
 	
 	virtual void init() {}
 	virtual void update() {}
@@ -45,8 +45,8 @@ private:
 	bool active = true;
 	std::vector<std::unique_ptr<Component>> components;
 
-	ComponentArray componentArray;
-	ComponentBitSet componentBitSet;
+	ComponentArray componentArray{};
+	ComponentBitSet componentBitSet{};
 public:
 	void update() {
 		for (auto& c : components) c->update();
@@ -58,7 +58,7 @@ public:
 	void destroy() { active = false; }
 
 	template <typename T> bool hasComponent() const {
-		return componentBitSet[getComponentTypeID<T>];
+		return componentBitSet[getComponentTypeID<T>()];
 	}
 
 	template <typename T, typename... TArgs>

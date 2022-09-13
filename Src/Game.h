@@ -7,8 +7,8 @@
 class Game {
 private:
 	int cnt = 0;
-	bool isRunning;
-	SDL_Window* window;
+	bool isRunning{};
+	SDL_Window* window{};
 
 public:
 	Game();

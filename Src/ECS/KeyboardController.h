@@ -14,8 +14,8 @@ private:
 		int mouseX, mouseY;
 		Uint32 buttons = SDL_GetMouseState(&mouseX, &mouseY);
 		Vector2D mousePos;
-		mousePos.x = mouseX;
-		mousePos.y = mouseY;
+		mousePos.x = static_cast<float>(mouseX);
+		mousePos.y = static_cast<float>(mouseY);
 
 		return mousePos;
 	}
@@ -44,7 +44,7 @@ private:
 	}
 
 public:
-	TransformComponent* transform;
+	TransformComponent* transform{};
 
 	void init() override {
 		transform = &entity->getComponent<TransformComponent>();

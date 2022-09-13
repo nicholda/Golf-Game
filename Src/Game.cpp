@@ -52,7 +52,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	ball.addComponent<KeyboardController>();
 	ball.addComponent<ColliderComponent>("ball");
 
-	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+	wall.addComponent<TransformComponent>(300.0f, 300.0f, 32, 32, 1);
 	wall.addComponent<SpriteComponent>("assets/WallTiles/Grass/wall2.png");
 	wall.addComponent<ColliderComponent>("wall");
 }
@@ -73,6 +73,14 @@ void Game::handleEvents() {
 void Game::update() {
 	manager.refresh();
 	manager.update();
+
+	if (Collision::AABB(ball.getComponent<ColliderComponent>().collider,
+		wall.getComponent<ColliderComponent>().collider)) {
+		ball.getComponent<TransformComponent>().velocity * -1;
+		std::cout << "Wall Hit!" << "\n";
+	}
+
+	ball.getComponent<TransformComponent>().velocity *= 0.98;
 }
 
 bool Game::running() {
