@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "ECS/Components.h"
 #include "Vector2D.h"
+#include "Collision.h"
 
 Map* map;
 Manager manager;
@@ -11,6 +12,7 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
 auto& ball(manager.addEntity());
+auto& wall(manager.addEntity());
 
 Game::Game() {
 
@@ -48,6 +50,11 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	ball.addComponent<TransformComponent>();
 	ball.addComponent<SpriteComponent>("assets/Balls/Ball.png");
 	ball.addComponent<KeyboardController>();
+	ball.addComponent<ColliderComponent>("ball");
+
+	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+	wall.addComponent<SpriteComponent>("assets/WallTiles/Grass/wall2.png");
+	wall.addComponent<ColliderComponent>("wall");
 }
 
 void Game::handleEvents() {

@@ -51,7 +51,17 @@ Map::Map() {
 }
 
 Map::~Map() {
-
+	SDL_DestroyTexture(grass);
+	SDL_DestroyTexture(wall1);
+	SDL_DestroyTexture(wall2);
+	SDL_DestroyTexture(wall3);
+	SDL_DestroyTexture(wall4);
+	SDL_DestroyTexture(wall5);
+	SDL_DestroyTexture(wall6);
+	SDL_DestroyTexture(wall7);
+	SDL_DestroyTexture(wall8);
+	SDL_DestroyTexture(wall9);
+	SDL_DestroyTexture(wall10);
 }
 
 void Map::LoadMap(int arr[20][20]) {

@@ -8,7 +8,7 @@ public:
 	Vector2D position;
 	Vector2D velocity;
 
-	float height = 16;
+	int height = 16;
 	int width = 16;
 	int scale = 1;
 
@@ -22,6 +22,14 @@ public:
 	TransformComponent(float x, float y) {
 		position.x = x;
 		position.y = y;
+	}
+
+	TransformComponent(float x, float y, int w, int h, int sc) {
+		position.x = x;
+		position.y = y;
+		height = h;
+		width = w;
+		scale = sc;
 	}
 
 	void init() override {
