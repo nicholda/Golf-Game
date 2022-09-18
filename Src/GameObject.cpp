@@ -18,13 +18,13 @@ void GameObject::Update() {
 
 	srcRect.x = 0;
 	srcRect.y = 0;
-	srcRect.h = 16;
-	srcRect.w = 16;
+	srcRect.h = 32;
+	srcRect.w = 32;
 
 	destRect.x = xpos;
 	destRect.y = ypos;
-	destRect.w = srcRect.w * 2;
-	destRect.h = srcRect.h * 2;
+	destRect.w = srcRect.w;
+	destRect.h = srcRect.h;
 }
 
 void GameObject::Render() {

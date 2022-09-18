@@ -28,10 +28,10 @@ public:
 			path = "assets/BackgroundTiles/Grass.png";
 			break;
 		case 1:
-			path = "assets/BackgroundTiles/Grass_Grassy.png";
+			path = "assets/Holes/GrassHole.png";
 			break;
 		case 2:
-			path = "assets/BackgroundTiles/Ice.png";
+			path = "assets/WallTiles/Grass/wall2.png";
 			break;
 		default:
 			break;

@@ -8,7 +8,8 @@ private:
 	int ypos;
 
 	SDL_Texture* objTexture;
-	SDL_Rect srcRect, destRect;
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
 	
 public:
 	GameObject(const char* textureSheet, int x, int y);
