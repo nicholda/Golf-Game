@@ -90,7 +90,11 @@ void Game::update() {
 		Collision::AABB(ball.getComponent<ColliderComponent>(), *cc);
 	}
 
-	ball.getComponent<TransformComponent>().velocity *= 0.98;
+	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
+	ballTransform->velocity *= 0.98;
+	if (ballTransform->velocity.x <= 0.05 && ballTransform->velocity.y <= 0.05) {
+		ballTransform->velocity.Zero();
+	}
 }
 
 bool Game::running() {

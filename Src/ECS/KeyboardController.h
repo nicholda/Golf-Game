@@ -7,6 +7,7 @@
 
 class KeyboardController : public Component {
 private:
+	bool hitting = false;
 	Vector2D mouseStartPos;
 	Vector2D mouseEndPos;
 
@@ -21,13 +22,14 @@ private:
 	}
 
 	void mousePress(SDL_MouseButtonEvent& input) {
-		if (input.button == SDL_BUTTON_LEFT) {
+		if (input.button == SDL_BUTTON_LEFT && transform->velocity.x == 0 && transform->velocity.y == 0) {
 			mouseStartPos = getMousePos();
+			hitting = true;
 		}
 	}
 
 	void mouseRelease(SDL_MouseButtonEvent& input) {
-		if (input.button == SDL_BUTTON_LEFT) {
+		if (input.button == SDL_BUTTON_LEFT && hitting == true) {
 			mouseEndPos = getMousePos();
 
 			Vector2D vel = mouseStartPos - mouseEndPos;
@@ -36,18 +38,22 @@ private:
 			distanceMultiplier.y = 100;
 			vel /= distanceMultiplier;
 
-			std::cout << vel << "\n";
+			//std::cout << vel << "\n";
 
 			transform->velocity.x = -vel.x;
 			transform->velocity.y = -vel.y;
+
+			hitting = false;
 		}
 	}
 
 public:
 	TransformComponent* transform{};
+	SpriteComponent* sprite;
 
 	void init() override {
 		transform = &entity->getComponent<TransformComponent>();
+		sprite = &entity->getComponent<SpriteComponent>();
 	}
 
 	void update() override {
