@@ -17,11 +17,9 @@ void Game::init(const char* title, int x, int y, int w, int h, const int windowF
 		std::cout << "error initializing SDL: &s\n", SDL_GetError();
 		running = false;
 
-	}
-	else {
+	} else {
 
 		window = SDL_CreateWindow(title, x, y, w, h, windowFlags);
-
 		if (window) {
 			std::cout << "window created\n";
 		}
@@ -68,9 +66,9 @@ bool Game::isRunning() {
 }
 
 void Game::clean() {
-	std::cout << "cleaning SDL\n";
-
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+
+	std::cout << "SDL cleaned\n";
 }
