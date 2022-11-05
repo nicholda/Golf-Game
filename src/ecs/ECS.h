@@ -353,3 +353,136 @@ public:
 		m_systemManager->SetSignature<T>(signature);
 	}
 };
+
+class ComponentManager {
+private:
+	std::unordered_map<const char*, ComponentType> m_componentTypes{};
+	std::unordered_map<const char*, std::shared_ptr<IComponentArray>> m_componentArrays{};
+
+	ComponentType m_nextComponentType{};
+
+	template <typename T>
+	std::shared_ptr<ComponentArray<T>> GetComponentArray() {
+		const char* typeName = typeid(T).name();
+
+		assert(m_componentTypes.find(typeName) != m_componentTypes.end() && "Component not registered before use.");
+
+		return std::static_pointer_cast<ComponentArray<T>>(m_componentArrays[typeName]);
+	}
+
+public:
+	template <typename T>
+	void RegisterComponent() {
+		const char* typeName = typeid(T).name();
+		
+		assert(m_componentTypes.find(typeName) == m_componentTypes.end() && "Registering compnent type more than once.");
+
+		// add the component type to the component type map
+		m_componentTypes.insert({ typeName, m_nextComponentType });
+		// create a ComponentArray pointer and add it to the component arrays map
+		m_componentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
+
+		// increment the value so that the next component registered will be different
+		++m_nextComponentType;
+	}
+
+	template <typename T>
+	ComponentType GetComponentType() {
+		const char* typeName = typeid(T).name();
+
+		assert(m_componentTypes.find(typeName) != m_componentTypes.end() && "Component not registered before use.");
+
+		return m_componentTypes[typeName];
+	}
+
+	template <typename T>
+	void AddComponent(Entity entity, T component) {
+		// add a component array for an entity
+		GetComponentArray<T>()->InsertData(entity, component);
+	}
+
+	template <typename T>
+	void RemoveComponent(Entity entity) {
+		// remove a component from the array for an entity
+		GetComponentArray<T>()->RemoveData(entity);
+	}
+
+	template <typename T>
+	T& GetComponent(Entity entity) {
+		// get a reference to a component from the array for an entity
+		return GetComponentArray<T>()->GetData();
+	}
+
+	void EntityDestroyed(Entity entity) {
+		// notify each component array
+		// if it has a component for that entity, remove it
+		for (auto const& pair : m_componentArrays) {
+			auto const& component = pair.second;
+			component->EntityDestroyed(entity);
+		}
+	}
+};
+
+class System {
+public:
+	std::set<Entity> m_entities;
+};
+
+class SystemManager {
+private:
+	// map from system type string pointer to a signature
+	std::unordered_map<const char*, Signature> m_signatures{};
+	// map from system type string pointer to a system pointer
+	std::unordered_map<const char*, std::shared_ptr<System>> m_systems{};
+
+public:
+	template <typename T>
+	std::shared_ptr<T> RegisterSystem() {
+		const char* typeName = typeid(T).name();
+
+		assert(m_systems.find(typeName) == m_systems.end() && "Registering system more than once.");
+
+		// create a pointer to the system and return it so it can be used externally
+		auto system = std::make_shared<T>();
+		m_systems.insert({ typeName, system });
+		return system;
+	}
+
+	template <typename T>
+	void SetSignature(Signature signature) {
+		const char* typeName = typeid(T).name();
+
+		assert(m_systems.find(typeName) != m_systems.end() && "System used before registered.");
+
+		// set the signature for this system
+		m_signatures.insert({ typeName, signature });
+	}
+
+	void EntityDestroyed(Entity entity) {
+		// erase a destroyed entity from all system lists
+		// m_entities is a set so no check needed
+		for (auto const& pair : m_systems) {
+			auto const& system = pair.second;
+
+			system->m_entities.erase(entity);
+		}
+	}
+
+	void EntitySignatureChanged(Entity entity, Signature entitySignature) {
+		// notify each ssytem that an entity's signature changed
+		for (auto const& pair : m_systems) {
+			auto const& type = pair.first;
+			auto const& system = pair.second;
+			auto const& systemSignature = m_signatures[type];
+
+			// entity signature matches system signature - insert into set
+			if ((entitySignature & systemSignature) == systemSignature) {
+				system->m_entities.insert(entity);
+			} // entity signature does not match system signature - erase from set
+			else {
+				system->m_entities.erase(entity);
+			}
+		}
+	}
+};
+
