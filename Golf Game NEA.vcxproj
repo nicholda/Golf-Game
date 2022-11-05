@@ -135,12 +135,12 @@
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ecs\ECS.h" />
     <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
