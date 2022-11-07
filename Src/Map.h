@@ -2,10 +2,7 @@
 
 #include <string>
 
-class Map
-{
-private:
-
+class Map {
 public:
 	Map();
 	~Map();
