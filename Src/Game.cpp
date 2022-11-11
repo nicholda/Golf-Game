@@ -55,7 +55,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	}
 	map = new Map();
 
-	Map::LoadMap("assets/Levels/Level_1.map", 20, 20);
+	Map::LoadMap("assets/Levels/Level_1.json");
 
 	ball.addComponent<TransformComponent>(0.0f, 0.0f, 32, 32, 0.5f);
 	ball.addComponent<SpriteComponent>("assets/Balls/Ball.png");
@@ -92,7 +92,7 @@ void Game::update() {
 
 	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
 	ballTransform->velocity *= 0.98;
-	if (ballTransform->velocity.x <= 0.05 && ballTransform->velocity.y <= 0.05) {
+	if (abs(ballTransform->velocity.x) <= 0.05 && abs(ballTransform->velocity.y <= 0.05)) {
 		ballTransform->velocity.Zero();
 	}
 }

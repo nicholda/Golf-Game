@@ -38,8 +38,6 @@ private:
 			distanceMultiplier.y = 100;
 			vel /= distanceMultiplier;
 
-			//std::cout << vel << "\n";
-
 			transform->velocity.x = -vel.x;
 			transform->velocity.y = -vel.y;
 
