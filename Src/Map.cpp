@@ -27,6 +27,17 @@ void Map::LoadMap(std::string path) {
 			Game::AddTile(tileType, x * 32, y * 32);
 		}
 	}
+
+	// place collidable tiles
+	for (int i = 0; i < mapSizeX * mapSizeY; i++) {
+		Json::Value tile = actualJson["layers"][0]["tiles"][i];
+		int tileType = tile["tile"].asInt();
+		if (tileType != -1) {
+			int x = tile["x"].asInt();
+			int y = tile["y"].asInt();
+			Game::AddTile(tileType, x * 32, y * 32);
+		}
+	}
 	
 	/*char tile;
 	std::fstream mapFile;
