@@ -41,6 +41,17 @@ private:
 			transform->velocity.x = -vel.x;
 			transform->velocity.y = -vel.y;
 
+			if (transform->velocity.x > 3) {
+				transform->velocity.x = 3;
+			} else if (transform->velocity.x < -3) {
+				transform->velocity.x = -3;
+			}
+			if (transform->velocity.y > 3) {
+				transform->velocity.y = 3;
+			} else if (transform->velocity.y < -3) {
+				transform->velocity.y = -3;
+			}
+
 			hitting = false;
 		}
 	}
