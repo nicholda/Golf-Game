@@ -24,7 +24,7 @@ void Map::LoadMap(std::string path) {
 		if (tileType != -1) {
 			int x = tile["x"].asInt();
 			int y = tile["y"].asInt();
-			Game::AddTile(tileType, x * 32, y * 32);
+			Game::AddTile(tileType, x * 32, y * 32, false);
 		}
 	}
 
@@ -35,21 +35,7 @@ void Map::LoadMap(std::string path) {
 		if (tileType != -1) {
 			int x = tile["x"].asInt();
 			int y = tile["y"].asInt();
-			Game::AddTile(tileType, x * 32, y * 32);
+			Game::AddTile(tileType, x * 32, y * 32, true);
 		}
 	}
-	
-	/*char tile;
-	std::fstream mapFile;
-	mapFile.open(path);
-
-	for (int y = 0; y < sizeY; y++) {
-		for (int x = 0; x < sizeX; x++) {
-			mapFile.get(tile);
-			Game::AddTile(atoi(&tile), x * 32, y * 32);
-			mapFile.ignore();
-		}
-	}
-
-	mapFile.close();*/
 }

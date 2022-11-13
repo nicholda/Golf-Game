@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Family\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,7 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Family\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Family\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Family\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Downloads\jsoncpp-master\jsoncpp-master\dist\jsoncpp.cpp" />
+    <ClCompile Include="dist\jsoncpp.cpp" />
     <ClCompile Include="Src\Collision.cpp" />
     <ClCompile Include="Src\ECS\ECS.cpp" />
     <ClCompile Include="Src\Game.cpp" />
@@ -145,8 +145,8 @@
     <ClCompile Include="Src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\jsoncpp-master\jsoncpp-master\dist\json\json-forwards.h" />
-    <ClInclude Include="..\..\..\..\Downloads\jsoncpp-master\jsoncpp-master\dist\json\json.h" />
+    <ClInclude Include="dist\json\json-forwards.h" />
+    <ClInclude Include="dist\json\json.h" />
     <ClInclude Include="Src\Collision.h" />
     <ClInclude Include="Src\ECS\Animation.h" />
     <ClInclude Include="Src\ECS\ColliderComponent.h" />

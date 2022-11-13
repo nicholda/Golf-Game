@@ -1336,7 +1336,7 @@
                     "rot": 0,
                     "y": 8,
                     "flipX": false,
-                    "tile": 1
+                    "tile": -1
                 },
                 {
                     "index": 167,
