@@ -1,6 +1,5 @@
 #include "Collision.h"
 #include "ECS/ColliderComponent.h"
-#include "Vector2D.h"
 
 bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB) {
 	if (
@@ -25,7 +24,7 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 	}
 }
 
-void Collision::reboundBall(const ColliderComponent& colA, const ColliderComponent& colB, TransformComponent* ballTransform) {
+void Collision::reboundBall(const ColliderComponent& colA, const ColliderComponent& colB, TransformComponent* ballTransform, Vector2D prevBallPos) {
 	Vector2D colACenter;
 	colACenter.x = colA.collider.x + colA.collider.w / 2;
 	colACenter.y = colA.collider.y + colA.collider.h / 2;
@@ -48,4 +47,6 @@ void Collision::reboundBall(const ColliderComponent& colA, const ColliderCompone
 	} else {
 		ballTransform->velocity.y *= -1;
 	}
+	
+	ballTransform->position = prevBallPos;
 }

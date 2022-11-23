@@ -81,18 +81,39 @@ void Game::update() {
 	manager.update();
 
 	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
+	ColliderComponent* ballCollider = &ball.getComponent<ColliderComponent>();
 
-	for (auto cc : colliders) {
-		bool hit = Collision::AABB(ball.getComponent<ColliderComponent>(), *cc);
-		if (hit) {
-			Collision::reboundBall(ball.getComponent<ColliderComponent>(), *cc, ballTransform);
-		}
+	Vector2D prevBallPos;
+	prevBallPos.x = ballTransform->position.x;
+	prevBallPos.y = ballTransform->position.y;
+
+	if (ballTransform->position.x < 0) {
+		ballTransform->position.x = 0;
+		ballTransform->velocity.x *= -1;
+	} else if (ballTransform->position.x > 640) {
+		ballTransform->position.x = 640;
+		ballTransform->velocity.x *= -1;
+	}
+	if (ballTransform->position.y < 0) {
+		ballTransform->position.y = 0;
+		ballTransform->velocity.y *= -1;
+	} else if (ballTransform->position.y > 640) {
+		ballTransform->position.y = 640;
+		ballTransform->velocity.y *= -1;
 	}
 
 	// make the ball stop if going too slow instead of velocity = 0.000000000001
 	ballTransform->velocity *= 0.98;
 	if (abs(ballTransform->velocity.x) <= 0.05 && abs(ballTransform->velocity.y) <= 0.05) {
 		ballTransform->velocity.Zero();
+	}
+
+	for (auto cc : colliders) {
+		bool hit = Collision::AABB(*ballCollider, *cc);
+		if (hit) {
+			Collision::reboundBall(*ballCollider, *cc, ballTransform, prevBallPos);
+			break;
+		}
 	}
 }
 
@@ -122,11 +143,12 @@ void Game::clean() {
 }
 
 void Game::AddTile(int id, int x, int y, bool collidable) {
+
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(x, y, 32, 32, id);
 
 	if (collidable) {
-	tile.addComponent<ColliderComponent>("wall");
+		tile.addComponent<ColliderComponent>("wall");
 	}
 
 	tile.addGroup(groupMap);

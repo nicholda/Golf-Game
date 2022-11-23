@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Vector2D.h"
 
 Map::Map() {
 	
@@ -27,15 +28,18 @@ void Map::LoadMap(std::string path) {
 			Game::AddTile(tileType, x * 32, y * 32, false);
 		}
 	}
-
+	
 	// place collidable tiles
 	for (int i = 0; i < mapSizeX * mapSizeY; i++) {
 		Json::Value tile = actualJson["layers"][0]["tiles"][i];
+
 		int tileType = tile["tile"].asInt();
 		if (tileType != -1) {
-			int x = tile["x"].asInt();
-			int y = tile["y"].asInt();
-			Game::AddTile(tileType, x * 32, y * 32, true);
+			Vector2D tilePos;
+			tilePos.x = tile["x"].asInt();
+			tilePos.y = tile["y"].asInt();
+
+			Game::AddTile(tileType, tilePos.x * 32, tilePos.y * 32, true);
 		}
 	}
-}
+}	
