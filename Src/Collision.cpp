@@ -15,7 +15,7 @@ bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB) {
 }
 
 bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& colB) {
-	if (AABB(colA.collider, colB.collider) and colA.tag != colB.tag) {
+	if (colA.tag != colB.tag and AABB(colA.collider, colB.collider)) {
 		//std::cout << colA.tag << " hit: " << colB.tag << "\n";
 		return true;
 	}
@@ -41,12 +41,20 @@ void Collision::reboundBall(const ColliderComponent& colA, const ColliderCompone
 	Vector2D depth;
 	depth.x = diff.x > 0 ? minDist.x - diff.x : -minDist.x - diff.x;
 	depth.y = diff.y > 0 ? minDist.y - diff.y : -minDist.y - diff.y;
-
+	
 	if (abs(depth.x) < abs(depth.y)) {
 		ballTransform->velocity.x *= -1;
+		if (diff.x < 0 and ballTransform->velocity.x > -0.05) {
+			ballTransform->velocity.x == 0.06; // ensures that the ball doesn't stop while in collider
+		} else if (ballTransform->velocity.x < 0.05) {
+			ballTransform->velocity.x == 0.06;
+		}
 	} else {
 		ballTransform->velocity.y *= -1;
+		if (diff.y < 0 and ballTransform->velocity.y > -0.05) {
+			ballTransform->velocity.y == 0.06; // ensures that the ball doesn't stop while in collider
+		} else if (ballTransform->velocity.y < 0.05) {
+			ballTransform->velocity.y == 0.06;
+		}
 	}
-	
-	ballTransform->position = prevBallPos;
 }

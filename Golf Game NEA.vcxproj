@@ -76,11 +76,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2_mixer-2.6.2\include;C:\dev\SDL2_ttf-2.20.1\include;C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\dev\SDL2_mixer-2.6.2\lib\x64;C:\dev\SDL2_ttf-2.20.1\lib\x64;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,13 +93,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2_mixer-2.6.2\include;C:\dev\SDL2_ttf-2.20.1\include;C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\dev\SDL2_mixer-2.6.2\lib\x64;C:\dev\SDL2_ttf-2.20.1\lib\x64;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -106,13 +110,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2_mixer-2.6.2\include;C:\dev\SDL2_ttf-2.20.1\include;C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\SDL2-2.24.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\SDL2_mixer-2.6.2\lib\x64;C:\dev\SDL2_ttf-2.20.1\lib\x64;C:\Dev\SDL2-2.24.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,15 +127,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2_mixer-2.6.2\include;C:\dev\SDL2_ttf-2.20.1\include;C:\Users\nicho\source\repos\nicholda\Golf-Game-NEA\include;C:\Dev\SDL2-2.24.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\SDL2-2.24.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\SDL2_mixer-2.6.2\lib\x64;C:\dev\SDL2_ttf-2.20.1\lib\x64;C:\Dev\SDL2-2.24.0\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -148,12 +152,13 @@
     <ClInclude Include="dist\json\json-forwards.h" />
     <ClInclude Include="dist\json\json.h" />
     <ClInclude Include="Src\Collision.h" />
-    <ClInclude Include="Src\ECS\Animation.h" />
+    <ClInclude Include="Src\ECS\AnimationComponent.h" />
     <ClInclude Include="Src\ECS\ColliderComponent.h" />
     <ClInclude Include="Src\ECS\Components.h" />
     <ClInclude Include="Src\ECS\ECS.h" />
-    <ClInclude Include="Src\ECS\KeyboardController.h" />
+    <ClInclude Include="Src\ECS\KeyboardComponent.h" />
     <ClInclude Include="Src\ECS\TileComponent.h" />
+    <ClInclude Include="src\ECS\UILabelComponent.h" />
     <ClInclude Include="Src\Game.h" />
     <ClInclude Include="Src\Map.h" />
     <ClInclude Include="Src\ECS\TransformComponent.h" />

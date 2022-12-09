@@ -4,12 +4,13 @@
 #include <vector>
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "SDL_mixer.h"
 
 class ColliderComponent;
 
 class Game {
 private:
-	int cnt = 0;
 	bool isRunning{};
 	SDL_Window* window{};
 
@@ -27,6 +28,22 @@ public:
 
 	static void AddTile(int id, int x, int y, bool collidable);
 	static SDL_Renderer* renderer;
+	static TTF_Font* font;
 	static SDL_Event event;
 	static std::vector<ColliderComponent*> colliders;
+	static int level;
+	static int score;
+	static int hits;
+	static int wallHits;
+	static bool hitting;
+	static int hitPower;
+	static Mix_Chunk* puttSound;
+	static Mix_Chunk* holeSound;
+	static Mix_Chunk* wallSound;
+
+	static enum groupLabels : std::size_t {
+		groupMap,
+		groupBalls,
+		groupUi
+	};
 };

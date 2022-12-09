@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Components.h"
-#include "Animation.h"
+#include "AnimationComponent.h"
 #include "../TextureManager.h"
 #include <map>
 #include "SDL.h"
@@ -19,7 +19,7 @@ private:
 public:
 	int animIndex = 0;
 
-	std::map<const char*, Animation> animations;
+	std::map<const char*, AnimationComponent> animations;
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
@@ -31,8 +31,8 @@ public:
 	SpriteComponent(const char* path, bool isAnimated) {
 		animated = isAnimated;
 
-		Animation idle = Animation(0, 3, 100);
-		Animation walk = Animation(1, 8, 100);
+		AnimationComponent idle = AnimationComponent(0, 3, 100);
+		AnimationComponent walk = AnimationComponent(1, 8, 100);
 
 		animations.emplace("Idle", idle);
 		animations.emplace("Walk", walk);

@@ -38,8 +38,20 @@ void Map::LoadMap(std::string path) {
 			Vector2D tilePos;
 			tilePos.x = tile["x"].asInt();
 			tilePos.y = tile["y"].asInt();
-
+			
 			Game::AddTile(tileType, tilePos.x * 32, tilePos.y * 32, true);
 		}
 	}
-}	
+}
+
+//void Map::UnloadMap(std::vector<Entity*> tilesGroup, std::vector<ColliderComponent*>& colliders) {
+//	for (int i = 0; i < tilesGroup.size(); i++) {
+//		auto& t = tilesGroup[i];
+//		t->delGroup(Game::groupMap);
+//		//t->destroy();
+//		//if (t->hasComponent<ColliderComponent>()) {
+//		//	colliders.erase(colliders.begin() + i);
+//		//}
+//	}
+//	std::cout << "Map unloaded\n";
+//}

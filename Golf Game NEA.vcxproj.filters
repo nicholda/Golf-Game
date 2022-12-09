@@ -65,7 +65,7 @@
     <ClInclude Include="Src\Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ECS\KeyboardController.h">
+    <ClInclude Include="Src\ECS\KeyboardComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\ECS\ColliderComponent.h">
@@ -77,13 +77,16 @@
     <ClInclude Include="Src\ECS\TileComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ECS\Animation.h">
+    <ClInclude Include="Src\ECS\AnimationComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dist\json\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dist\json\json-forwards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\UILabelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
