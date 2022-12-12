@@ -13,10 +13,10 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 		Vector2 lerpedPos;
 		lerpedPos.lerp(prevPos, pos, i / 1000);
 		if (
-			lerpedPos.x + colA.collider.w >= colB.collider.x &&
-			colB.collider.x + colB.collider.w >= lerpedPos.x &&
-			lerpedPos.y + colA.collider.h >= colB.collider.y &&
-			colB.collider.y + colB.collider.h >= lerpedPos.y
+			lerpedPos.x + static_cast<float>(colA.collider.w) >= static_cast<float>(colB.collider.x) &&
+			static_cast<float>(colB.collider.x + colB.collider.w) >= lerpedPos.x &&
+			lerpedPos.y + static_cast<float>(colA.collider.h) >= static_cast<float>(colB.collider.y) &&
+			static_cast<float>(colB.collider.y) + static_cast<float>(colB.collider.h) >= lerpedPos.y
 			) {
 			return true;
 		}
@@ -25,7 +25,7 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 	return false;
 }
 
-void Collision::rebound(const ColliderComponent& colA, const ColliderComponent& colB,
+void Collision::Rebound(const ColliderComponent& colA, const ColliderComponent& colB,
 	TransformComponent* ballTransform, Vector2& prevBallPos) {
 	Vector2 colACenter; // center of a
 	colACenter.x = colA.collider.x + colA.collider.w / 2.0f;
@@ -46,16 +46,16 @@ void Collision::rebound(const ColliderComponent& colA, const ColliderComponent& 
 
 	if (abs(depth.x) < abs(depth.y)) {
 		ballTransform->velocity.x *= -1;
-		if (diff.x < 0 && ballTransform->velocity.x > -0.05) {
-			ballTransform->velocity.x = 0.06f; // ensures that the ball doesn't stop while in collider
-		} else if (diff.x > 0 && ballTransform->velocity.x < 0.05) {
+		if (diff.x < 0 && abs(ballTransform->velocity.x) < 0.05) { // left side
+			ballTransform->velocity.x = -0.06f; // ensures that the ball doesn't stop while in collider
+		} else if (diff.x > 0 && abs(ballTransform->velocity.x) < 0.05) { // right side
 			ballTransform->velocity.x = 0.06f;
 		}
 	} else {
 		ballTransform->velocity.y *= -1;
-		if (diff.y < 0 && ballTransform->velocity.y > -0.05) {
-			ballTransform->velocity.y = 0.06f; // ensures that the ball doesn't stop while in collider
-		} else if (diff.y > 0 && ballTransform->velocity.y < 0.05) {
+		if (diff.y < 0 && abs(ballTransform->velocity.y) < 0.05) { // top
+			ballTransform->velocity.y = -0.06f; // ensures that the ball doesn't stop while in collider
+		} else if (diff.y > 0 && abs(ballTransform->velocity.y) < 0.05) { // bottom
 			ballTransform->velocity.y = 0.06f;
 		}
 	}

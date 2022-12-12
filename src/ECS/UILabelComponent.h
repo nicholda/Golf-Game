@@ -31,6 +31,11 @@ public:
 		SDL_QueryTexture(labelTexture, nullptr, nullptr, &position.w, &position.h);
 	}
 
+	void SetLabelPosition(int xPos, int yPos) {
+		position.x = xPos;
+		position.y = yPos;
+	}
+
 	void draw() override {
 		SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);
 	}

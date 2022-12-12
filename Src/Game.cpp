@@ -140,10 +140,6 @@ void Game::update() {
 
 	manager.update(); // update positions after storing previous positions
 
-	Vector2 ballPos;
-	ballPos.x = ballTransform->position.x;
-	ballPos.y = ballTransform->position.y;
-
 	if (ballTransform->position.x < 0) {
 		Mix_PlayChannel(-1, Game::wallSound, 0);
 		ballTransform->position.x = 0;
@@ -169,20 +165,17 @@ void Game::update() {
 		ballTransform->velocity.Zero();
 	}
 
+	bool wallHit = false;
 	for (int i = 0; i < colliders.size(); i++) {
 		auto cc = colliders[i];
 
-		if (!Collision::AABB(*ballCollider, *cc, ballPos)) {
+		if (!Collision::AABB(*ballCollider, *cc, ballTransform->position)) {
 			continue;
 		}
 
 		if (cc->tag == "hole") { // if ball hits hole load new level
 			Mix_PlayChannel(-1, Game::holeSound, 0);
 			Game::level += 1;
-			if (Game::level == 16) {
-				std::cout << score << "\n";
-				isRunning = false;
-			}
 			auto& tilesGroup(manager.getGroup(groupMap));
 			for (int j = 0; j < colliders.size(); j++) {
 				auto cc2 = colliders[j];
@@ -192,17 +185,27 @@ void Game::update() {
 				}
 			}
 			colliders.clear();
-			std::string first = "assets/Levels/Level_";
-			std::string last = ".json";
-			Map::LoadMap(first + std::to_string(Game::level) + last);
-			hits = 0;
-			ballTransform->velocity.Zero();
-			ballTransform->position.x = 320;
-			ballTransform->position.y = 600;
-			score += 100;
+			if (Game::level < 15) {
+				std::string first = "assets/Levels/Level_";
+				std::string last = ".json";
+				Map::LoadMap(first + std::to_string(Game::level) + last);
+				hits = 0;
+				ballTransform->velocity.Zero();
+				ballTransform->position.x = 320;
+				ballTransform->position.y = 600;
+				score += 100;
+			} else { // game complete
+				ball.delGroup(groupBalls);
+				ball.destroy();
+				font = TTF_OpenFont("assets/Fonts/arial.ttf", 64);
+				UILabelComponent* labelComponent = &scoreLabel.getComponent<UILabelComponent>();
+				labelComponent->SetLabelPosition(210, 250);
+			}
 		} else { // if ball hits wall destroy wall
 			Mix_PlayChannel(-1, Game::wallSound, 0);
-			Collision::rebound(*ballCollider, *cc, ballTransform, prevBallPos);
+			if (!wallHit) {
+				Collision::Rebound(*ballCollider, *cc, ballTransform, prevBallPos);
+			}
 				
 			cc->entity->delGroup(groupMap);
 			cc->entity->destroy();
@@ -210,7 +213,8 @@ void Game::update() {
 			wallHits += 1;
 			score += 5 * wallHits;
 		}
-		break;
+		
+		wallHit = true;
 	}
 
 	TransformComponent* powerMetreTransform = &powerMetre.getComponent<TransformComponent>();
