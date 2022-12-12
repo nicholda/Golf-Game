@@ -1,9 +1,11 @@
 #include <sstream>
+#include <cmath>
+#include <cassert>
 #include "Game.h"
 #include "TextureManager.h"
 #include "Map.h"
 #include "ECS/Components.h"
-#include "Vector2D.h"
+#include "Vector2.h"
 #include "Collision.h"
 
 Map* map;
@@ -21,6 +23,12 @@ int Game::hitPower;
 Mix_Chunk* Game::puttSound;
 Mix_Chunk* Game::holeSound;
 Mix_Chunk* Game::wallSound;
+
+enum Game::groupLabels : std::size_t {
+	groupMap,
+	groupBalls,
+	groupUi
+};
 
 std::vector<ColliderComponent*> Game::colliders;
 
@@ -91,7 +99,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	ball.addGroup(groupBalls);
 
 	SDL_Color darkBlue = { 0, 0, 250, 255 };
-	scoreLabel.addComponent<UILabelComponent>(275, 10, "Score: 0", darkBlue);
+	scoreLabel.addComponent<UILabelComponent>(275, 5, "Score: 0", darkBlue);
 
 	powerMetre.addComponent<TransformComponent>(0.0f, 0.0f, 16, 8, 1.0f);
 	powerMetre.addComponent<SpriteComponent>("assets/UI/Red.png");
@@ -122,14 +130,19 @@ void Game::update() {
 	scoreLabel.getComponent<UILabelComponent>().SetLabelText(ss.str());
 
 	manager.refresh();
-	manager.update();
 
 	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
 	ColliderComponent* ballCollider = &ball.getComponent<ColliderComponent>();
 
-	Vector2D prevBallPos;
+	Vector2 prevBallPos;
 	prevBallPos.x = ballTransform->position.x;
 	prevBallPos.y = ballTransform->position.y;
+
+	manager.update(); // update positions after storing previous positions
+
+	Vector2 ballPos;
+	ballPos.x = ballTransform->position.x;
+	ballPos.y = ballTransform->position.y;
 
 	if (ballTransform->position.x < 0) {
 		Mix_PlayChannel(-1, Game::wallSound, 0);
@@ -158,53 +171,55 @@ void Game::update() {
 
 	for (int i = 0; i < colliders.size(); i++) {
 		auto cc = colliders[i];
-		bool hit = Collision::AABB(*ballCollider, *cc);
-		if (hit) {
-			if (cc->tag == "hole") { // if ball hits hole load new level
-				Mix_PlayChannel(-1, Game::holeSound, 0);
-				Game::level += 1;
-				if (Game::level == 13) {
-					std::cout << score << "\n";
-					isRunning = false;
-				}
-				auto& tilesGroup(manager.getGroup(groupMap));
-				for (int j = 0; j < colliders.size(); j++) {
-					auto cc2 = colliders[j];
-					if (cc2->tag != "ball") {
-						cc2->entity->delGroup(groupMap);
-						cc2->entity->destroy();
-					}
-				}
-				colliders.clear();
-				std::string first = "assets/Levels/Level_";
-				std::string last = ".json";
-				Map::LoadMap(first + std::to_string(Game::level) + last);
-				hits = 0;
-				ballTransform->velocity.Zero();
-				ballTransform->position.x = 320;
-				ballTransform->position.y = 600;
-				score += 100;
-			} else { // if ball hits wall destroy wall
-				Mix_PlayChannel(-1, Game::wallSound, 0);
-				Collision::reboundBall(*ballCollider, *cc, ballTransform, prevBallPos);
-				
-				cc->entity->delGroup(groupMap);
-				cc->entity->destroy();
-				colliders.erase(colliders.begin() + i);
-				wallHits += 1;
-				score += 5 * wallHits;
-			}
-			break;
+
+		if (!Collision::AABB(*ballCollider, *cc, ballPos)) {
+			continue;
 		}
+
+		if (cc->tag == "hole") { // if ball hits hole load new level
+			Mix_PlayChannel(-1, Game::holeSound, 0);
+			Game::level += 1;
+			if (Game::level == 16) {
+				std::cout << score << "\n";
+				isRunning = false;
+			}
+			auto& tilesGroup(manager.getGroup(groupMap));
+			for (int j = 0; j < colliders.size(); j++) {
+				auto cc2 = colliders[j];
+				if (cc2->tag != "ball") {
+					cc2->entity->delGroup(groupMap);
+					cc2->entity->destroy();
+				}
+			}
+			colliders.clear();
+			std::string first = "assets/Levels/Level_";
+			std::string last = ".json";
+			Map::LoadMap(first + std::to_string(Game::level) + last);
+			hits = 0;
+			ballTransform->velocity.Zero();
+			ballTransform->position.x = 320;
+			ballTransform->position.y = 600;
+			score += 100;
+		} else { // if ball hits wall destroy wall
+			Mix_PlayChannel(-1, Game::wallSound, 0);
+			Collision::rebound(*ballCollider, *cc, ballTransform, prevBallPos);
+				
+			cc->entity->delGroup(groupMap);
+			cc->entity->destroy();
+			colliders.erase(colliders.begin() + i);
+			wallHits += 1;
+			score += 5 * wallHits;
+		}
+		break;
 	}
 
 	TransformComponent* powerMetreTransform = &powerMetre.getComponent<TransformComponent>();
 	KeyboardComponent* keyboardComponent = &ball.getComponent<KeyboardComponent>();
 	if (Game::hitting) {
-		Vector2D hitPower = keyboardComponent->getHitPower();
+		Vector2 hitPower = keyboardComponent->getHitPower();
 		hitPower.x = abs(hitPower.x);
 		hitPower.y = abs(hitPower.y);
-		powerMetreTransform->height = sqrt(pow(hitPower.x, 2) + pow(hitPower.y, 2)) * 10;
+		powerMetreTransform->height = std::max(hitPower.x, hitPower.y) * 10;
 	} else {
 		powerMetreTransform->height = 0;
 	}

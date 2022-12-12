@@ -27,7 +27,7 @@
     <ClCompile Include="Src\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Vector2D.cpp">
+    <ClCompile Include="Src\Vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Collision.cpp">
@@ -62,7 +62,7 @@
     <ClInclude Include="Src\ECS\SpriteComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Vector2D.h">
+    <ClInclude Include="Src\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Src\ECS\KeyboardComponent.h">
@@ -77,9 +77,6 @@
     <ClInclude Include="Src\ECS\TileComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ECS\AnimationComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dist\json\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,5 +86,24 @@
     <ClInclude Include="src\ECS\UILabelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Golf Game NEA.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Balls\GoldBall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Icons\GoldBall.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

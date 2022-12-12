@@ -1,15 +1,15 @@
 #pragma once
 
 #include "SDL.h"
-#include "Vector2D.h"
+#include "Vector2.h"
 
 class ColliderComponent;
 class TransformComponent;
 
 class Collision {
 public:
-	static bool AABB(const SDL_Rect& recA, const SDL_Rect& recB);
-	static bool AABB(const ColliderComponent& colA, const ColliderComponent& colB);
+	static bool AABB(const ColliderComponent& colA, const ColliderComponent& colB, const Vector2& prevPos);
 
-	static void reboundBall(const ColliderComponent& colA, const ColliderComponent& colB, TransformComponent* ballTransform, Vector2D prevBallPos);
+	static void rebound(const ColliderComponent& colA, const ColliderComponent& colB,
+		TransformComponent* ballTransform, Vector2& prevBallPos);
 };

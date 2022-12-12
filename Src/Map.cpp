@@ -1,5 +1,5 @@
 #include "Map.h"
-#include "Vector2D.h"
+#include "Vector2.h"
 
 Map::Map() {
 	
@@ -35,7 +35,7 @@ void Map::LoadMap(std::string path) {
 
 		int tileType = tile["tile"].asInt();
 		if (tileType != -1) {
-			Vector2D tilePos;
+			Vector2 tilePos;
 			tilePos.x = tile["x"].asInt();
 			tilePos.y = tile["y"].asInt();
 			

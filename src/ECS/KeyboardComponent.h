@@ -1,14 +1,14 @@
 #pragma once
 
 #include "../Game.h"
-#include "../Vector2D.h"
+#include "../Vector2.h"
 #include "ECS.h"
 #include "Components.h"
 
 class KeyboardComponent : public Component {
 private:
-	Vector2D mouseStartPos;
-	Vector2D mouseEndPos;
+	Vector2 mouseStartPos;
+	Vector2 mouseEndPos;
 
 	void mousePress(SDL_MouseButtonEvent& input) {
 		if (input.button == SDL_BUTTON_LEFT && transform->velocity.x == 0 && transform->velocity.y == 0) {
@@ -52,36 +52,42 @@ public:
 		}
 	}
 
-	Vector2D getHitPower() {
+	Vector2 getHitPower() {
 		mouseEndPos = getMousePos();
 
-		Vector2D vel;
+		Vector2 vel;
 		vel.x = mouseStartPos.x - mouseEndPos.x;
 		vel.y = mouseStartPos.y - mouseEndPos.y;
-		Vector2D distanceMultiplier;
+		Vector2 distanceMultiplier;
 		distanceMultiplier.x = 100;
 		distanceMultiplier.y = 100;
 		vel /= distanceMultiplier;
 		vel *= -1;
 
-		if (vel.x > 2.5) {
-			vel.x = 2.5;
-		} else if (vel.x < -2.5) {
-			vel.x = -2.5;
-		}
-		if (vel.y > 2.5) {
-			vel.y = 2.5;
-		} else if (vel.y < -2.5) {
-			vel.y = -2.5;
+		if (abs(vel.x) > 2.5 && abs(vel.y) > 2.5) {
+			float div = std::max(abs(vel.x), abs(vel.y)) / 2.5f;
+			vel.x /= div;
+			vel.y /= div;
+		} else {
+			if (vel.x > 2.5) {
+				vel.x = 2.5;
+			} else if (vel.x < -2.5) {
+				vel.x = -2.5;
+			}
+			if (vel.y > 2.5) {
+				vel.y = 2.5;
+			} else if (vel.y < -2.5) {
+				vel.y = -2.5;
+			}
 		}
 
 		return vel;
 	}
 
-	Vector2D getMousePos() {
+	Vector2 getMousePos() {
 		int mouseX, mouseY;
 		Uint32 buttons = SDL_GetMouseState(&mouseX, &mouseY);
-		Vector2D mousePos;
+		Vector2 mousePos;
 		mousePos.x = static_cast<float>(mouseX);
 		mousePos.y = static_cast<float>(mouseY);
 

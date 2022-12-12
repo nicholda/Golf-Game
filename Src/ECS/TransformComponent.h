@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Components.h"
-#include "../Vector2D.h"
+#include "../Vector2.h"
 
 class TransformComponent : public Component {
 public:
-	Vector2D position;
-	Vector2D velocity;
+	Vector2 position;
+	Vector2 velocity;
 
 	int height = 32;
 	int width = 32;
@@ -18,7 +18,7 @@ public:
 		position.Zero();
 	}
 
-	TransformComponent(int sc) {
+	TransformComponent(float sc) {
 		position.Zero();
 		scale = sc;
 	}

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -41,9 +42,5 @@ public:
 	static Mix_Chunk* holeSound;
 	static Mix_Chunk* wallSound;
 
-	static enum groupLabels : std::size_t {
-		groupMap,
-		groupBalls,
-		groupUi
-	};
+	enum groupLabels : std::size_t;
 };

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Components.h"
-#include "AnimationComponent.h"
 #include "../TextureManager.h"
 #include <map>
 #include "SDL.h"
@@ -12,32 +11,11 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 
-	bool animated = false;
-	int frames = 0;
-	int speed = 100;
-
 public:
-	int animIndex = 0;
-
-	std::map<const char*, AnimationComponent> animations;
-
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
 	SpriteComponent() = default;
 	SpriteComponent(const char* path) {
-		setTex(path);
-	}
-
-	SpriteComponent(const char* path, bool isAnimated) {
-		animated = isAnimated;
-
-		AnimationComponent idle = AnimationComponent(0, 3, 100);
-		AnimationComponent walk = AnimationComponent(1, 8, 100);
-
-		animations.emplace("Idle", idle);
-		animations.emplace("Walk", walk);
-
-		Play("Idle");
 		setTex(path);
 	}
 
@@ -59,25 +37,16 @@ public:
 	}
 
 	void update() override {
-		if (animated) {
-			srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / speed) % frames);
-		}
 
-		srcRect.y = animIndex * transform->height;
+		//srcRect.y = animIndex * transform->height;
 
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
-		destRect.w = transform->width * transform->scale;
-		destRect.h = transform->height * transform->scale;
+		destRect.w = static_cast<int>(transform->width * transform->scale);
+		destRect.h = static_cast<int>(transform->height * transform->scale);
 	}
 
 	void draw() override {
 		TextureManager::Draw(texture, srcRect, destRect, spriteFlip);
-	}
-
-	void Play(const char* animName) {
-		frames = animations[animName].frames;
-		animIndex = animations[animName].index;
-		speed = animations[animName].speed;
 	}
 };

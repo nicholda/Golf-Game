@@ -146,13 +146,13 @@
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\Map.cpp" />
     <ClCompile Include="Src\TextureManager.cpp" />
-    <ClCompile Include="Src\Vector2D.cpp" />
+    <ClCompile Include="Src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dist\json\json-forwards.h" />
     <ClInclude Include="dist\json\json.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Src\Collision.h" />
-    <ClInclude Include="Src\ECS\AnimationComponent.h" />
     <ClInclude Include="Src\ECS\ColliderComponent.h" />
     <ClInclude Include="Src\ECS\Components.h" />
     <ClInclude Include="Src\ECS\ECS.h" />
@@ -164,7 +164,15 @@
     <ClInclude Include="Src\ECS\TransformComponent.h" />
     <ClInclude Include="Src\ECS\SpriteComponent.h" />
     <ClInclude Include="Src\TextureManager.h" />
-    <ClInclude Include="Src\Vector2D.h" />
+    <ClInclude Include="Src\Vector2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Golf Game NEA.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Balls\GoldBall.png" />
+    <Image Include="assets\Icons\GoldBall.ico" />
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
