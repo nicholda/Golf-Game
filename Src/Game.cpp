@@ -17,7 +17,7 @@ SDL_Event Game::event;
 int Game::score;
 int Game::hits = 0;
 int Game::wallHits = 0;
-int Game::level = 1;
+int Game::level = 13;
 bool Game::hitting;
 int Game::hitPower;
 Mix_Chunk* Game::puttSound;

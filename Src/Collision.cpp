@@ -2,16 +2,24 @@
 #include "ECS/ColliderComponent.h"
 
 bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& colB, const Vector2& prevPos) {
+	Vector2 pos;
+	pos.x = static_cast<float>(colA.collider.x);
+	pos.y = static_cast<float>(colA.collider.y);
+	
 	if (colA.tag == colB.tag) { // return early, more performant
 		return false;
 	}
-
-	for (float i = 1; i <= 1000; i++) { // takes 1,000 lerped collision samples for high precision, lower if performance becomes an issue
-		Vector2 pos;
-		pos.x = static_cast<float>(colA.collider.x);
-		pos.y = static_cast<float>(colA.collider.y);
+	
+	if (pos.x + static_cast<float>(colA.collider.w) < static_cast<float>(colB.collider.x) ||
+		static_cast<float>(colB.collider.x + colB.collider.w) < pos.x ||
+		pos.y + static_cast<float>(colA.collider.h) < static_cast<float>(colB.collider.y) ||
+		static_cast<float>(colB.collider.y + colB.collider.h) < pos.y) { // return early, more performant
+		return false;
+	}
+	
+	for (float i = 1; i <= 100000; i++) { // takes 1,000 lerped collision samples for high precision, lower if performance becomes an issue
 		Vector2 lerpedPos;
-		lerpedPos.lerp(prevPos, pos, i / 1000);
+		lerpedPos.lerp(prevPos, pos, i / 100000);
 		if (
 			lerpedPos.x + static_cast<float>(colA.collider.w) >= static_cast<float>(colB.collider.x) &&
 			static_cast<float>(colB.collider.x + colB.collider.w) >= lerpedPos.x &&

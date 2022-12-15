@@ -64,20 +64,20 @@ public:
 		vel /= distanceMultiplier;
 		vel *= -1;
 
-		if (abs(vel.x) > 2.5 && abs(vel.y) > 2.5) {
-			float div = std::max(abs(vel.x), abs(vel.y)) / 2.5f;
+		if (abs(vel.x) > 1.75 && abs(vel.y) > 1.75) {
+			float div = std::max(abs(vel.x), abs(vel.y)) / 1.75f;
 			vel.x /= div;
 			vel.y /= div;
 		} else {
-			if (vel.x > 2.5) {
-				vel.x = 2.5;
-			} else if (vel.x < -2.5) {
-				vel.x = -2.5;
+			if (vel.x > 1.75) {
+				vel.x = 1.75;
+			} else if (vel.x < -1.75) {
+				vel.x = -2;
 			}
-			if (vel.y > 2.5) {
-				vel.y = 2.5;
-			} else if (vel.y < -2.5) {
-				vel.y = -2.5;
+			if (vel.y > 1.75) {
+				vel.y = 1.75;
+			} else if (vel.y < -1.75) {
+				vel.y = -1.75;
 			}
 		}
 

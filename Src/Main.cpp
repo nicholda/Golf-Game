@@ -4,9 +4,8 @@
 Game* game = nullptr;
 
 int main(int argc, char* argv[]) {
-
 	HWND hWin = GetForegroundWindow();
-    ShowWindow(hWin, SW_HIDE);
+	ShowWindow(hWin, SW_SHOW);
 
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
