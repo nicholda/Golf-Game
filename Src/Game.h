@@ -38,6 +38,7 @@ public:
 	static int wallHits;
 	static bool hitting;
 	static int hitPower;
+	static bool finished;
 	static Mix_Chunk* puttSound;
 	static Mix_Chunk* holeSound;
 	static Mix_Chunk* wallSound;

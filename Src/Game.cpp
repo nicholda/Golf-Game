@@ -17,9 +17,10 @@ SDL_Event Game::event;
 int Game::score;
 int Game::hits = 0;
 int Game::wallHits = 0;
-int Game::level = 13;
+int Game::level = 1;
 bool Game::hitting;
 int Game::hitPower;
+bool Game::finished = false;
 Mix_Chunk* Game::puttSound;
 Mix_Chunk* Game::holeSound;
 Mix_Chunk* Game::wallSound;
@@ -125,11 +126,16 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+
 	std::stringstream ss;
 	ss << "Score: " << score;
 	scoreLabel.getComponent<UILabelComponent>().SetLabelText(ss.str());
 
 	manager.refresh();
+
+	if (Game::finished) {
+		return;
+	}
 
 	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
 	ColliderComponent* ballCollider = &ball.getComponent<ColliderComponent>();
@@ -195,6 +201,7 @@ void Game::update() {
 				ballTransform->position.y = 600;
 				score += 100;
 			} else { // game complete
+				Game::finished = true;
 				ball.delGroup(groupBalls);
 				ball.destroy();
 				font = TTF_OpenFont("assets/Fonts/arial.ttf", 64);
