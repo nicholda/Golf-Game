@@ -19,6 +19,7 @@ public:
 	Game();
 	~Game();
 
+	// allows the game to be initialised from 'Main.cpp'
 	void init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen);
 
 	void handleEvents();

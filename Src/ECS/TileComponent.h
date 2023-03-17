@@ -5,6 +5,7 @@
 #include "SpriteComponent.h"
 #include "SDL.h"
 
+// this component is used to give entities textures, positions, and dimensions
 class TileComponent : public Component {
 public:
 	TransformComponent* transform;
@@ -14,6 +15,7 @@ public:
 	int tileID;
 	const char* path;
 
+	// allow the tile to be initialised with either nothing, or positions, dimensions, and a texture
 	TileComponent() = default;
 
 	TileComponent(int x, int y, int w, int h, int id) {
@@ -38,6 +40,7 @@ public:
 		}
 	}
 
+	// this function is called when the component is created
 	void init() override {
 		entity->addComponent<TransformComponent>(static_cast<float>(tileRect.x),
 			static_cast<float>(tileRect.y), tileRect.w, tileRect.h, 1);

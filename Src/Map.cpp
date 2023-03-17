@@ -9,7 +9,7 @@ Map::~Map() {
 	
 }
 
-void Map::LoadMap(std::string path) {
+void Map::LoadMap(std::string path) { // 'assets/Levels/Level_1.json' is an example map path
 	std::ifstream mapFile(path);
 	Json::Value actualJson;
 	Json::Reader reader;
@@ -18,23 +18,24 @@ void Map::LoadMap(std::string path) {
 	int mapSizeX = actualJson["tileswide"].asInt();
 	int mapSizeY = actualJson["tileshigh"].asInt();
 	
-	// place background tiles
+	// create background tiles
 	for (int i = 0; i < mapSizeX * mapSizeY; i++) {
 		Json::Value tile = actualJson["layers"][1]["tiles"][i];
 		int tileType = tile["tile"].asInt();
-		if (tileType != -1) {
-			int x = tile["x"].asInt();
-			int y = tile["y"].asInt();
-			Game::AddTile(tileType, x * 32, y * 32, false);
+		if (tileType != -1) { // tileType -1 is an empty tile
+			Vector2 tilePos;
+			tilePos.x = tile["x"].asInt();
+			tilePos.y = tile["y"].asInt();
+			
+			Game::AddTile(tileType, tilePos.x * 32, tilePos.y * 32, false);
 		}
 	}
 	
-	// place collidable tiles
+	// create collidable tiles
 	for (int i = 0; i < mapSizeX * mapSizeY; i++) {
 		Json::Value tile = actualJson["layers"][0]["tiles"][i];
-
 		int tileType = tile["tile"].asInt();
-		if (tileType != -1) {
+		if (tileType != -1) { // tileType -1 is an empty tile
 			Vector2 tilePos;
 			tilePos.x = tile["x"].asInt();
 			tilePos.y = tile["y"].asInt();

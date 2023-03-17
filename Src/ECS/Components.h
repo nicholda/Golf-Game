@@ -1,5 +1,7 @@
 #pragma once
 
+// link all of the component files
+
 #include "ECS.h"
 #include "TransformComponent.h"
 #include "SpriteComponent.h"

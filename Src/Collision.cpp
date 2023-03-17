@@ -10,16 +10,9 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 		return false;
 	}
 	
-	if (pos.x + static_cast<float>(colA.collider.w) < static_cast<float>(colB.collider.x) ||
-		static_cast<float>(colB.collider.x + colB.collider.w) < pos.x ||
-		pos.y + static_cast<float>(colA.collider.h) < static_cast<float>(colB.collider.y) ||
-		static_cast<float>(colB.collider.y + colB.collider.h) < pos.y) { // return early, more performant
-		return false;
-	}
-	
-	for (float i = 1; i <= 100000; i++) { // takes 1,000 lerped collision samples for high precision, lower if performance becomes an issue
+	for (float i = 1; i <= 1000; i++) { // takes 100,000 lerped collision samples for high precision, lower if performance becomes an issue
 		Vector2 lerpedPos;
-		lerpedPos.lerp(prevPos, pos, i / 100000);
+		lerpedPos.lerp(prevPos, pos, i / 1000);
 		if (
 			lerpedPos.x + static_cast<float>(colA.collider.w) >= static_cast<float>(colB.collider.x) &&
 			static_cast<float>(colB.collider.x + colB.collider.w) >= lerpedPos.x &&
