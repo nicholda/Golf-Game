@@ -83,7 +83,7 @@
     <ClInclude Include="dist\json\json-forwards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\UILabelComponent.h">
+    <ClInclude Include="src\ECS\UIComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">

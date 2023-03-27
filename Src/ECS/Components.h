@@ -8,4 +8,4 @@
 #include "KeyboardComponent.h"
 #include "ColliderComponent.h"
 #include "TileComponent.h"
-#include "UILabelComponent.h"
+#include "UIComponent.h"

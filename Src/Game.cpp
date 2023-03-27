@@ -103,7 +103,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	ball.addGroup(groupBalls);
 
 	SDL_Color darkBlue = { 0, 0, 250, 255 }; // dark blue is used because it contrasts the background
-	scoreLabel.addComponent<UILabelComponent>(275, 5, "Score: 0", darkBlue);
+	scoreLabel.addComponent<UIComponent>(275, 5, "Score: ", darkBlue);
 
 	// setup the power metre that is next to the ball
 	powerMetre.addComponent<TransformComponent>(0.0f, 0.0f, 12, 8, 1.0f);
@@ -136,7 +136,7 @@ void Game::update() {
 	// update the score counter before the manager is refreshed
 	std::stringstream ss;
 	ss << "Score: " << score;
-	scoreLabel.getComponent<UILabelComponent>().SetLabelText(ss.str());
+	scoreLabel.getComponent<UIComponent>().SetLabelText(ss.str());
 
 	manager.refresh();
 
@@ -219,7 +219,7 @@ void Game::update() {
 				ball.delGroup(groupBalls);
 				ball.destroy();
 				font = TTF_OpenFont("assets/Fonts/arial.ttf", 64);
-				UILabelComponent* labelComponent = &scoreLabel.getComponent<UILabelComponent>();
+				UIComponent* labelComponent = &scoreLabel.getComponent<UIComponent>();
 				labelComponent->SetLabelPosition(210, 250);
 			}
 		} else { // if ball hits wall destroy wall
