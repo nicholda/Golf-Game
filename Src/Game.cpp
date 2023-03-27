@@ -86,7 +86,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 		std::cout << "SDL_TTF successfully initialized!\n";
 	}
 
-	font = TTF_OpenFont("assets/Fonts/arial.ttf", 28); // load arial
+	font = TTF_OpenFont("assets/Fonts/Roboto-Black.ttf", 28); // load font
 	if (font) {
 		std::cout << "Font loaded!\n";
 	}
@@ -102,7 +102,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	ball.addComponent<ColliderComponent>("ball");
 	ball.addGroup(groupBalls);
 
-	SDL_Color darkBlue = { 0, 0, 250, 255 }; // dark blue is used because it contrasts the background
+	SDL_Color darkBlue = { 75, 75, 255, 255 }; // dark blue is used because it contrasts the background
 	scoreLabel.addComponent<UIComponent>(275, 5, "Score: ", darkBlue);
 
 	// setup the power metre that is next to the ball
@@ -218,7 +218,7 @@ void Game::update() {
 				Game::finished = true;
 				ball.delGroup(groupBalls);
 				ball.destroy();
-				font = TTF_OpenFont("assets/Fonts/arial.ttf", 64);
+				font = TTF_OpenFont("assets/Fonts/Roboto-Black.ttf", 64);
 				UIComponent* labelComponent = &scoreLabel.getComponent<UIComponent>();
 				labelComponent->SetLabelPosition(210, 250);
 			}
