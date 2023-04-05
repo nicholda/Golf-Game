@@ -5,11 +5,11 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 	Vector2 pos;
 	pos.x = static_cast<float>(colA.collider.x);
 	pos.y = static_cast<float>(colA.collider.y);
-	
+
 	if (colA.tag == colB.tag) { // return early, more performant
 		return false;
 	}
-	
+
 	for (float i = 1; i <= 1000; i++) { // takes 100,000 lerped collision samples for high precision, lower if performance becomes an issue
 		Vector2 lerpedPos;
 		lerpedPos.lerp(prevPos, pos, i / 1000);
@@ -47,16 +47,16 @@ void Collision::Rebound(const ColliderComponent& colA, const ColliderComponent& 
 
 	if (abs(depth.x) < abs(depth.y)) {
 		ballTransform->velocity.x *= -1;
-		if (diff.x < 0 && abs(ballTransform->velocity.x) < 0.05) { // left side
+		if (diff.x < 0 && abs(ballTransform->velocity.x) < 0.05) { // left face
 			ballTransform->velocity.x = -0.06f; // ensures that the ball doesn't stop while in collider
-		} else if (diff.x > 0 && abs(ballTransform->velocity.x) < 0.05) { // right side
+		} else if (diff.x > 0 && abs(ballTransform->velocity.x) < 0.05) { // right face
 			ballTransform->velocity.x = 0.06f;
 		}
 	} else {
 		ballTransform->velocity.y *= -1;
-		if (diff.y < 0 && abs(ballTransform->velocity.y) < 0.05) { // top
+		if (diff.y < 0 && abs(ballTransform->velocity.y) < 0.05) { // top face
 			ballTransform->velocity.y = -0.06f; // ensures that the ball doesn't stop while in collider
-		} else if (diff.y > 0 && abs(ballTransform->velocity.y) < 0.05) { // bottom
+		} else if (diff.y > 0 && abs(ballTransform->velocity.y) < 0.05) { // bottom face
 			ballTransform->velocity.y = 0.06f;
 		}
 	}

@@ -35,7 +35,7 @@ enum Game::groupLabels : std::size_t {
 std::vector<ColliderComponent*> Game::colliders;
 
 Entity& ball(manager.addEntity());
-Entity& powerMetre(manager.addEntity());
+Entity& powerMeter(manager.addEntity());
 Entity& scoreLabel(manager.addEntity());
 
 Game::Game() {
@@ -105,10 +105,10 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	SDL_Color darkBlue = { 75, 75, 255, 255 }; // dark blue is used because it contrasts the background
 	scoreLabel.addComponent<UIComponent>(275, 5, "Score: ", darkBlue);
 
-	// setup the power metre that is next to the ball
-	powerMetre.addComponent<TransformComponent>(0.0f, 0.0f, 12, 8, 1.0f);
-	powerMetre.addComponent<SpriteComponent>("assets/UI/Red.png");
-	powerMetre.addGroup(groupUi);
+	// setup the power meter that is next to the ball
+	powerMeter.addComponent<TransformComponent>(0.0f, 0.0f, 12, 8, 1.0f);
+	powerMeter.addComponent<SpriteComponent>("assets/UI/Red.png");
+	powerMeter.addGroup(groupUi);
 
 	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
 	ballTransform->velocity.Zero();
@@ -201,7 +201,6 @@ void Game::update() {
 				if (cc2->tag != "ball") {
 					cc2->entity->delGroup(groupMap);
 					cc2->entity->destroy();
-					//TODO: test to see if this causes the memory leak
 				}
 			}
 			colliders.clear();
@@ -238,20 +237,20 @@ void Game::update() {
 		wallHit = true; // stored so the ball doesn't rebound multiple times
 	}
 
-	// render the correct power metre dimensions
-	TransformComponent* powerMetreTransform = &powerMetre.getComponent<TransformComponent>();
+	// render the correct power meter dimensions
+	TransformComponent* powerMeterTransform = &powerMeter.getComponent<TransformComponent>();
 	KeyboardComponent* keyboardComponent = &ball.getComponent<KeyboardComponent>();
 	if (Game::hitting) {
 		Vector2 hitPower = keyboardComponent->getHitPower();
 		hitPower.x = abs(hitPower.x);
 		hitPower.y = abs(hitPower.y);
-		powerMetreTransform->height = std::max(hitPower.x, hitPower.y) * 15;
+		powerMeterTransform->height = std::max(hitPower.x, hitPower.y) * 15;
 	} else {
-		powerMetreTransform->height = 0;
+		powerMeterTransform->height = 0;
 	}
-	powerMetreTransform->position.x = ballTransform->position.x - 25;
-	powerMetreTransform->position.y = 
-		ballTransform->position.y - powerMetreTransform->height + ballTransform->height / 2;
+	powerMeterTransform->position.x = ballTransform->position.x - 25;
+	powerMeterTransform->position.y = 
+		ballTransform->position.y - powerMeterTransform->height + ballTransform->height / 2;
 
 	if (score < 0) {
 		score = 0; // ensure that the score can't become negative
