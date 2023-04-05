@@ -44,15 +44,3 @@ void Map::LoadMap(std::string path) { // 'assets/Levels/Level_1.json' is an exam
 		}
 	}
 }
-
-//void Map::UnloadMap(std::vector<Entity*> tilesGroup, std::vector<ColliderComponent*>& colliders) {
-//	for (int i = 0; i < tilesGroup.size(); i++) {
-//		auto& t = tilesGroup[i];
-//		t->delGroup(Game::groupMap);
-//		//t->destroy();
-//		//if (t->hasComponent<ColliderComponent>()) {
-//		//	colliders.erase(colliders.begin() + i);
-//		//}
-//	}
-//	std::cout << "Map unloaded\n";
-//}
