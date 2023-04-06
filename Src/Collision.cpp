@@ -10,9 +10,9 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 		return false;
 	}
 
-	for (float i = 1; i <= 1000; i++) { // takes 1,000 lerped collision samples for high precision, lower if performance becomes an issue
+	for (float i = 1; i <= 10; i++) { // takes 10 lerped collision samples for high precision, lower if performance becomes an issue
 		Vector2 lerpedPos;
-		lerpedPos.lerp(prevPos, pos, i / 1000);
+		lerpedPos.lerp(prevPos, pos, i / 10);
 		if (
 			lerpedPos.x + static_cast<float>(colA.collider.w) >= static_cast<float>(colB.collider.x) &&
 			static_cast<float>(colB.collider.x + colB.collider.w) >= lerpedPos.x &&
