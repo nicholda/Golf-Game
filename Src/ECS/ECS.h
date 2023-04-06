@@ -14,12 +14,12 @@ class Manager;
 using ComponentID = std::size_t;
 using Group = std::size_t;
 
-inline ComponentID getNewComponentTypeID() {
+inline ComponentID getNewComponentTypeID() { // gets a new ID to be used for a component
 	static ComponentID lastID = 0u;
 	return lastID++;
 }
 
-template <typename T> inline ComponentID getComponentTypeID() noexcept {
+template <typename T> inline ComponentID getComponentTypeID() noexcept { // gets the ID of a component
 	static_assert (std::is_base_of<Component, T>::value, "");
 	static ComponentID typeID = getNewComponentTypeID();
 	return typeID;
@@ -33,7 +33,7 @@ using GroupBitset = std::bitset<maxGroups>;
 
 using ComponentArray = std::array<Component*, maxComponents>;
 
-class Component {
+class Component { // parent class to all component classes
 private:
 
 public:
@@ -46,7 +46,7 @@ public:
 	virtual ~Component() {}
 };
 
-class Entity {
+class Entity { // manages entities and gives them the ability to have components
 private:
 	Manager& manager;
 	bool active = true;
@@ -101,7 +101,7 @@ public:
 	}
 };
 
-class Manager {
+class Manager { // manages entities and gives them additional functionality
 private:
 	std::vector<std::unique_ptr<Entity>> entities;
 	std::array<std::vector<Entity*>, maxGroups> groupedEntities;
@@ -132,7 +132,7 @@ public:
 			std::end(entities));
 	}
 
-	void AddToGroup(Entity* mEntity, Group mGroup) {
+	void addToGroup(Entity* mEntity, Group mGroup) {
 		groupedEntities[mGroup].emplace_back(mEntity);
 	}
 
