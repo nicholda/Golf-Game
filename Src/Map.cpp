@@ -9,7 +9,7 @@ Map::~Map() {
 	
 }
 
-void Map::LoadMap(std::string path) { // 'assets/Levels/Level_1.json' is an example map path
+void Map::loadMap(std::string path) { // 'assets/Levels/Level_1.json' is an example map path
 	std::ifstream mapFile(path);
 	Json::Value actualJson;
 	Json::Reader reader;
@@ -27,7 +27,7 @@ void Map::LoadMap(std::string path) { // 'assets/Levels/Level_1.json' is an exam
 			tilePos.x = tile["x"].asInt();
 			tilePos.y = tile["y"].asInt();
 			
-			Game::AddTile(tileType, tilePos.x * 32, tilePos.y * 32, false);
+			Game::addTile(tileType, tilePos.x * 32, tilePos.y * 32, false);
 		}
 	}
 	
@@ -40,7 +40,7 @@ void Map::LoadMap(std::string path) { // 'assets/Levels/Level_1.json' is an exam
 			tilePos.x = tile["x"].asInt();
 			tilePos.y = tile["y"].asInt();
 			
-			Game::AddTile(tileType, tilePos.x * 32, tilePos.y * 32, true);
+			Game::addTile(tileType, tilePos.x * 32, tilePos.y * 32, true);
 		}
 	}
 }

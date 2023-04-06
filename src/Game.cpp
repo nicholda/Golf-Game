@@ -93,7 +93,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	map = new Map(); // allocate the map to the heap
 
-	Map::LoadMap("assets/Levels/Level_1.json"); // load the first level
+	Map::loadMap("assets/Levels/Level_1.json"); // load the first level
 
 	// setup the ball
 	ball.addComponent<TransformComponent>(0.0f, 0.0f, 32, 32, 0.5f);
@@ -111,7 +111,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	powerMeter.addGroup(groupUi);
 
 	TransformComponent* ballTransform = &ball.getComponent<TransformComponent>();
-	ballTransform->velocity.Zero();
+	ballTransform->velocity.zero();
 	// the same ball position is used at the start of every level
 	ballTransform->position.x = 320;
 	ballTransform->position.y = 600;
@@ -136,7 +136,7 @@ void Game::update() {
 	// update the score counter before the manager is refreshed
 	std::stringstream ss;
 	ss << "Score: " << score;
-	scoreLabel.getComponent<UIComponent>().SetLabelText(ss.str());
+	scoreLabel.getComponent<UIComponent>().setLabelText(ss.str());
 
 	manager.refresh();
 
@@ -176,7 +176,7 @@ void Game::update() {
 	// make the ball stop if going too slow instead of velocity = 0.000000000001
 	ballTransform->velocity *= 0.985;
 	if (abs(ballTransform->velocity.x) <= 0.05 && abs(ballTransform->velocity.y) <= 0.05) {
-		ballTransform->velocity.Zero();
+		ballTransform->velocity.zero();
 	}
 
 	// iterate through the colliders
@@ -207,9 +207,9 @@ void Game::update() {
 			if (Game::level < 8) {
 				std::string first = "assets/Levels/Level_";
 				std::string last = ".json";
-				Map::LoadMap(first + std::to_string(Game::level) + last);
+				Map::loadMap(first + std::to_string(Game::level) + last);
 				hits = 0;
-				ballTransform->velocity.Zero();
+				ballTransform->velocity.zero();
 				ballTransform->position.x = 320;
 				ballTransform->position.y = 600;
 				score += 100;
@@ -219,12 +219,12 @@ void Game::update() {
 				ball.destroy();
 				font = TTF_OpenFont("assets/Fonts/Roboto-Black.ttf", 64);
 				UIComponent* labelComponent = &scoreLabel.getComponent<UIComponent>();
-				labelComponent->SetLabelPosition(210, 250);
+				labelComponent->setLabelPosition(210, 250);
 			}
 		} else { // if ball hits wall destroy wall
 			Mix_PlayChannel(-1, Game::wallSound, 0);
 			if (!wallHit) { // if the ball has already rebounded this frame, don't do it again
-				Collision::Rebound(*ballCollider, *cc, ballTransform, prevBallPos);
+				Collision::rebound(*ballCollider, *cc, ballTransform, prevBallPos);
 			}
 			
 			cc->entity->delGroup(groupMap);
@@ -293,7 +293,7 @@ void Game::clean() { // clean up the game after it's closed
 }	
 
 // this function adds tiles, not balls
-void Game::AddTile(int id, int x, int y, bool collidable) {
+void Game::addTile(int id, int x, int y, bool collidable) {
 
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(x, y, 32, 32, id);

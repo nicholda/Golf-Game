@@ -21,11 +21,11 @@ public:
 		position.x = xPos;
 		position.y = yPos;
 
-		SetLabelText(labelText);
+		setLabelText(labelText);
 	}
 	~UIComponent() {}
 
-	void SetLabelText(std::string text) {
+	void setLabelText(std::string text) {
 		if (text == labelText) { // no point rendering the same thing
 			return;
 		}
@@ -40,7 +40,7 @@ public:
 		SDL_FreeSurface(surf); // frees the resources used by surf
 	}
 
-	void SetLabelPosition(int xPos, int yPos) {
+	void setLabelPosition(int xPos, int yPos) {
 		position.x = xPos;
 		position.y = yPos;
 	}

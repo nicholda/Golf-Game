@@ -10,7 +10,7 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 		return false;
 	}
 
-	for (float i = 1; i <= 1000; i++) { // takes 100,000 lerped collision samples for high precision, lower if performance becomes an issue
+	for (float i = 1; i <= 1000; i++) { // takes 1,000 lerped collision samples for high precision, lower if performance becomes an issue
 		Vector2 lerpedPos;
 		lerpedPos.lerp(prevPos, pos, i / 1000);
 		if (
@@ -26,7 +26,7 @@ bool Collision::AABB(const ColliderComponent& colA, const ColliderComponent& col
 	return false;
 }
 
-void Collision::Rebound(const ColliderComponent& colA, const ColliderComponent& colB,
+void Collision::rebound(const ColliderComponent& colA, const ColliderComponent& colB,
 	TransformComponent* ballTransform, Vector2& prevBallPos) {
 	Vector2 colACenter; // center of a
 	colACenter.x = colA.collider.x + colA.collider.w / 2.0f;

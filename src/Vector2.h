@@ -14,10 +14,10 @@ public:
 
 	~Vector2();
 
-	Vector2& Add(const Vector2& vec);
-	Vector2& Subtract(const Vector2& vec);
-	Vector2& Multiply(const Vector2& vec);
-	Vector2& Divide(const Vector2& vec);
+	Vector2& add(const Vector2& vec);
+	Vector2& subtract(const Vector2& vec);
+	Vector2& multiply(const Vector2& vec);
+	Vector2& divide(const Vector2& vec);
 
 	// override the +,-,*,/ operators
 	friend Vector2& operator+(Vector2& vec1, const Vector2& vec2);
@@ -40,7 +40,7 @@ public:
 	Vector2& operator*=(const float val);
 	Vector2& operator/=(const float val);
 
-	Vector2& Zero();
+	Vector2& zero();
 
 	// performs linear interpolation
 	Vector2& lerp(const Vector2& vec1, const Vector2& vec2, float t);

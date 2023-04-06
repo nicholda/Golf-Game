@@ -28,7 +28,7 @@ public:
 	void render();
 	void clean();
 
-	static void AddTile(int id, int x, int y, bool collidable);
+	static void addTile(int id, int x, int y, bool collidable);
 	static SDL_Renderer* renderer;
 	static TTF_Font* font;
 	static SDL_Event event;

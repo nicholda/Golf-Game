@@ -17,11 +17,11 @@ public:
 	
 	// allow the component to be initialised with various parameters
 	TransformComponent() {
-		position.Zero();
+		position.zero();
 	}
 
 	TransformComponent(float sc) {
-		position.Zero();
+		position.zero();
 		scale = sc;
 	}
 
@@ -40,14 +40,12 @@ public:
 
 	// this function is called when the component is created
 	void init() override {
-		velocity.Zero();
+		velocity.zero();
 	}
 
 	// this function is called every frame
 	void update() override {
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
-		//position.x += static_cast<float>(rand() % 100) / 100 - 0.5 + velocity.x * speed;
-		//position.y += static_cast<float>(rand() % 100) / 100 - 0.5 + velocity.y * speed;
 	}
 };

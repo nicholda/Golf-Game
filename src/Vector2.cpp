@@ -15,28 +15,28 @@ Vector2::~Vector2() {
 
 }
 
-Vector2& Vector2::Add(const Vector2& vec) {
+Vector2& Vector2::add(const Vector2& vec) {
 	this->x += vec.x;
 	this->y += vec.y;
 
 	return *this;
 }
 
-Vector2& Vector2::Subtract(const Vector2& vec) {
+Vector2& Vector2::subtract(const Vector2& vec) {
 	this->x -= vec.x;
 	this->y -= vec.y;
 
 	return *this;
 }
 
-Vector2& Vector2::Multiply(const Vector2& vec) {
+Vector2& Vector2::multiply(const Vector2& vec) {
 	this->x *= vec.x;
 	this->y *= vec.y;
 
 	return *this;
 }
 
-Vector2& Vector2::Divide(const Vector2& vec) {
+Vector2& Vector2::divide(const Vector2& vec) {
 	this->x /= vec.x;
 	this->y /= vec.y;
 
@@ -45,19 +45,19 @@ Vector2& Vector2::Divide(const Vector2& vec) {
 
 // override the +,-,*,/ operators
 Vector2& operator+(Vector2& vec1, const Vector2& vec2) {
-	return vec1.Add(vec2);
+	return vec1.add(vec2);
 }
 
 Vector2& operator-(Vector2& vec1, const Vector2& vec2) {
-	return vec1.Subtract(vec2);
+	return vec1.subtract(vec2);
 }
 
 Vector2& operator*(Vector2& vec1, const Vector2& vec2) {
-	return vec1.Multiply(vec2);
+	return vec1.multiply(vec2);
 }
 
 Vector2& operator/(Vector2& vec1, const Vector2& vec2) {
-	return vec1.Divide(vec2);
+	return vec1.divide(vec2);
 }
 
 // override the * operator
@@ -70,19 +70,19 @@ Vector2& Vector2::operator*(const int& val) {
 
 // override the +=,-=,*=,/= operators
 Vector2& Vector2::operator+=(const Vector2& vec) {
-	return this->Add(vec);
+	return this->add(vec);
 }
 
 Vector2& Vector2::operator-=(const Vector2& vec) {
-	return this->Subtract(vec);
+	return this->subtract(vec);
 }
 
 Vector2& Vector2::operator*=(const Vector2& vec) {
-	return this->Multiply(vec);
+	return this->multiply(vec);
 }
 
 Vector2& Vector2::operator/=(const Vector2& vec) {
-	return this->Divide(vec);
+	return this->divide(vec);
 }
 
 // override the +=,-=,*=,/= operators
@@ -114,7 +114,7 @@ Vector2& Vector2::operator/=(const float val) {
 	return *this;
 }
 
-Vector2& Vector2::Zero() {
+Vector2& Vector2::zero() {
 	this->x = 0;
 	this->y = 0;
 

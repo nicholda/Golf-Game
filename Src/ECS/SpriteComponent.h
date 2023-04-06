@@ -28,7 +28,7 @@ public:
 
 	// sets the texture to a path relative to the executable file
 	void setTex(const char* path) {
-		texture = TextureManager::LoadTexture(path);
+		texture = TextureManager::loadTexture(path);
 	}
 
 	// this function is called when the component is created
@@ -54,6 +54,6 @@ public:
 
 	// this function is called from 'Game.cpp'
 	void draw() override {
-		TextureManager::Draw(texture, srcRect, destRect, spriteFlip);
+		TextureManager::draw(texture, srcRect, destRect, spriteFlip);
 	}
 };
